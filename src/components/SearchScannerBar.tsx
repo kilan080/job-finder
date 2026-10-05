@@ -36,7 +36,9 @@ const LOCATION_PRESETS = [
   { label: 'All Locations', value: '' },
   { label: 'Remote Only', value: 'remote' },
   { label: 'Nigeria', value: 'nigeria' },
-  { label: 'New Zealand', value: 'new zealand' },
+  { label: 'Australia', value: 'australia' },
+  { label: 'Canada', value: 'canada' },
+  { label: 'United States', value: 'united states' },
   { label: 'Worldwide', value: 'worldwide' },
 ];
 

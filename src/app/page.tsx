@@ -36,7 +36,7 @@ const DEFAULT_PROFILE: CandidateProfile = {
   skills: ['React', 'TypeScript', 'Next.js', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS', 'REST API', 'Git'],
   targetRoles: ['Frontend Engineer', 'Full-Stack Developer', 'Junior Frontend Developer', 'Software Engineering Intern', 'React Developer'],
   experienceLevel: 'junior',
-  locations: ['Nigeria', 'New Zealand', 'Worldwide', 'Remote'],
+  locations: ['Nigeria', 'Australia', 'Canada', 'United States', 'Worldwide', 'Remote'],
   remoteOnly: true,
   minSalary: 40000,
   bio: 'Ambitious web developer with expertise in React, TypeScript, Next.js, and Node.js backend systems.'
