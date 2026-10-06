@@ -3,15 +3,10 @@
 import React from 'react';
 import { 
   Search, 
-  SlidersHorizontal, 
   Globe, 
   Briefcase, 
-  Check, 
   RotateCcw,
-  Sparkles,
-  Zap,
-  Building,
-  Filter
+  Sparkles
 } from 'lucide-react';
 import { SearchFilterState } from '@/types/job';
 
@@ -45,8 +40,8 @@ const LOCATION_PRESETS = [
 export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
   filters,
   setFilters,
-  totalCount,
-  sourcesScannedCount,
+  _totalCount,
+  _sourcesScannedCount,
   onReset
 }) => {
   return (

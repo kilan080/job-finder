@@ -18,14 +18,7 @@ import {
 import { calculateJobMatch } from '@/lib/matching/scoringEngine';
 import { 
   Radar, 
-  Sparkles, 
-  Layers, 
-  CheckCircle2, 
-  Building2, 
-  RefreshCw,
-  Zap,
-  TrendingUp,
-  BookmarkCheck
+  RefreshCw
 } from 'lucide-react';
 
 const DEFAULT_PROFILE: CandidateProfile = {
@@ -70,6 +63,24 @@ export default function HomePage() {
   // Application Pipeline Records (JobId -> ApplicationRecord)
   const [applications, setApplications] = useState<Record<string, ApplicationRecord>>({});
 
+  // Fetch Jobs from backend API pipeline
+  const fetchJobs = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/jobs');
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        // Raw jobs returned from pipeline
+        const rawJobs: Job[] = json.data.map((item: { job: Job }) => item.job);
+        setJobs(rawJobs);
+      }
+    } catch (err) {
+      console.error('Fetch jobs error:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Load saved state from LocalStorage on mount
   useEffect(() => {
     try {
@@ -81,7 +92,7 @@ export default function HomePage() {
       if (savedApps) {
         setApplications(JSON.parse(savedApps));
       }
-    } catch (e) {}
+    } catch (_e) {}
 
     fetchJobs();
   }, []);
@@ -91,7 +102,7 @@ export default function HomePage() {
     setProfile(newProfile);
     try {
       localStorage.setItem('matchpulse_profile', JSON.stringify(newProfile));
-    } catch (e) {}
+    } catch (_e) {}
   };
 
   const handleUpdateApplicationStatus = (jobId: string, status: ApplicationStatus, customCoverLetter?: string) => {
@@ -110,7 +121,7 @@ export default function HomePage() {
       const newApps = { ...prev, [jobId]: updated };
       try {
         localStorage.setItem('matchpulse_apps', JSON.stringify(newApps));
-      } catch (e) {}
+      } catch (_e) {}
       return newApps;
     });
   };
@@ -130,28 +141,11 @@ export default function HomePage() {
       delete newApps[jobId];
       try {
         localStorage.setItem('matchpulse_apps', JSON.stringify(newApps));
-      } catch (e) {}
+      } catch (_e) {}
       return newApps;
     });
   };
 
-  // Fetch Jobs from backend API pipeline
-  const fetchJobs = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch('/api/jobs');
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        // Raw jobs returned from pipeline
-        const rawJobs: Job[] = json.data.map((item: any) => item.job);
-        setJobs(rawJobs);
-      }
-    } catch (err) {
-      console.error('Fetch jobs error:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // Trigger Live Discovery Scan
   const handleTriggerScan = async () => {
@@ -164,7 +158,7 @@ export default function HomePage() {
         setScanMessage(json.scanSummary.message);
         await fetchJobs();
       }
-    } catch (err) {
+    } catch (_err) {
       setScanMessage('Scan completed with partial results.');
     } finally {
       setIsScanning(false);

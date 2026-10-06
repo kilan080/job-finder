@@ -2,14 +2,11 @@
 
 import React from 'react';
 import { 
-  Sparkles, 
   Radar, 
-  FileText, 
   BookmarkCheck, 
   Search, 
   UserCheck, 
   Zap,
-  CheckCircle2,
   TrendingUp
 } from 'lucide-react';
 import { CandidateProfile } from '@/types/job';
@@ -35,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   appliedCount,
   primeFitCount,
   onOpenProfile,
-  onOpenTracker,
+  onOpenTracker: _onOpenTracker,
   onTriggerScan,
   isScanning,
   activeTab,

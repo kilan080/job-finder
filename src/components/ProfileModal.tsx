@@ -4,14 +4,9 @@ import React, { useState } from 'react';
 import { 
   X, 
   User, 
-  Mail, 
-  FileText, 
   Sparkles, 
   Plus, 
-  Trash2, 
   Check, 
-  Briefcase, 
-  MapPin, 
   CheckCircle2, 
   Upload
 } from 'lucide-react';
@@ -206,7 +201,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <label className="block text-xs font-medium text-slate-300 mb-1">Target Experience Level</label>
               <select
                 value={formData.experienceLevel}
-                onChange={(e) => setFormData(prev => ({ ...prev, experienceLevel: e.target.value as any }))}
+                onChange={(e) => setFormData(prev => ({ ...prev, experienceLevel: e.target.value as CandidateProfile['experienceLevel'] }))}
                 className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-100 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="internship">Internship Level</option>

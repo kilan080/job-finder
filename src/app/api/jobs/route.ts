@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     if (profileParam) {
       try {
         candidateProfile = { ...DEFAULT_PROFILE, ...JSON.parse(profileParam) };
-      } catch (e) {
+      } catch (_e) {
         // use default
       }
     }
@@ -121,10 +121,11 @@ export async function GET(request: NextRequest) {
       data: filtered
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch jobs';
     console.error('Jobs GET route error:', error);
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to fetch jobs' },
+      { success: false, error: message },
       { status: 500 }
     );
   }

@@ -1,4 +1,4 @@
-import { Job, JobSourceType } from '@/types/job';
+import { Job, JobSourceType, EmploymentType } from '@/types/job';
 import { deduplicateJobs, generateDedupeKey } from './deduplicator';
 
 // Curated tech seed jobs targeting React, TS, Next.js, Node, Junior, Internship & Remote roles
@@ -176,6 +176,18 @@ const CURATED_SEED_JOBS: Job[] = [
   }
 ];
 
+interface ArbeitnowItem {
+  slug?: string;
+  title?: string;
+  company_name?: string;
+  location?: string;
+  remote?: boolean;
+  tags?: string[];
+  description?: string;
+  url?: string;
+  created_at?: number;
+}
+
 // Fetch live jobs from Arbeitnow public REST API
 async function fetchArbeitnowJobs(): Promise<Job[]> {
   try {
@@ -187,7 +199,7 @@ async function fetchArbeitnowJobs(): Promise<Job[]> {
     const data = await res.json();
     const items = data.data || [];
 
-    return items.slice(0, 15).map((item: any) => {
+    return items.slice(0, 15).map((item: ArbeitnowItem) => {
       const isRemote = item.remote || item.location?.toLowerCase().includes('remote') || false;
       const tags: string[] = item.tags || ['Tech'];
       const title: string = item.title || 'Software Engineer';
@@ -228,6 +240,20 @@ async function fetchArbeitnowJobs(): Promise<Job[]> {
   }
 }
 
+interface RemotiveItem {
+  id?: string | number;
+  title?: string;
+  company_name?: string;
+  company_logo_url?: string;
+  candidate_required_location?: string;
+  job_type?: string;
+  salary?: string | number | null;
+  tags?: string[];
+  description?: string;
+  url?: string;
+  publication_date?: string;
+}
+
 // Fetch live jobs from Remotive API
 async function fetchRemotiveJobs(): Promise<Job[]> {
   try {
@@ -239,7 +265,7 @@ async function fetchRemotiveJobs(): Promise<Job[]> {
     const data = await res.json();
     const items = data.jobs || [];
 
-    return items.slice(0, 15).map((item: any) => {
+    return items.slice(0, 15).map((item: RemotiveItem) => {
       const title: string = item.title || 'Developer';
       const company: string = item.company_name || 'Remote Tech';
       const tags: string[] = item.tags || [];
@@ -257,7 +283,7 @@ async function fetchRemotiveJobs(): Promise<Job[]> {
         companyLogo: item.company_logo_url || undefined,
         location: item.candidate_required_location || 'Remote (Worldwide)',
         remote: true,
-        employmentType: (item.job_type || 'full_time').replace('_', '-') as any,
+        employmentType: (item.job_type || 'full_time').replace('_', '-') as EmploymentType,
         experienceLevel: title.toLowerCase().includes('junior') || title.toLowerCase().includes('intern') ? 'Junior' : 'Mid-level',
         salaryMin: item.salary ? 60000 : 50000,
         salaryMax: item.salary ? 90000 : 80000,

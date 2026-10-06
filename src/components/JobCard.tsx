@@ -10,7 +10,6 @@ import {
   AlertCircle, 
   Bookmark, 
   BookmarkCheck, 
-  ExternalLink, 
   Layers, 
   Sparkles,
   Zap,

@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import { 
   X, 
-  Building2, 
   MapPin, 
-  DollarSign, 
   Sparkles, 
   CheckCircle2, 
   AlertCircle, 
@@ -15,10 +13,8 @@ import {
   FileText, 
   Send, 
   ShieldCheck, 
-  Bookmark, 
   Layers,
   Award,
-  Zap,
   Briefcase
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -72,7 +68,7 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
           spread: 60,
           origin: { y: 0.7 }
         });
-      } catch (e) {}
+      } catch (_e) {}
     }
   };
 

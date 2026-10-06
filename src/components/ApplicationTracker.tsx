@@ -6,13 +6,11 @@ import {
   Send, 
   MessageSquare, 
   Award, 
-  XCircle, 
-  Building2, 
-  ExternalLink, 
   Trash2, 
   FileText,
   Clock,
-  Sparkles
+  Sparkles,
+  LucideIcon
 } from 'lucide-react';
 import { Job, ApplicationRecord, ApplicationStatus, MatchAnalysis } from '@/types/job';
 
@@ -25,7 +23,7 @@ interface ApplicationTrackerProps {
   onRemoveApplication: (jobId: string) => void;
 }
 
-const STAGES: { key: ApplicationStatus; label: string; icon: any; color: string }[] = [
+const STAGES: { key: ApplicationStatus; label: string; icon: LucideIcon; color: string }[] = [
   { key: 'saved', label: 'Saved Jobs', icon: Bookmark, color: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/30' },
   { key: 'applying', label: 'In Draft Pitch', icon: FileText, color: 'text-amber-400 bg-amber-500/10 border-amber-500/30' },
   { key: 'applied', label: 'Applied', icon: Send, color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' },

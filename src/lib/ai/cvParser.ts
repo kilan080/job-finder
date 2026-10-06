@@ -9,7 +9,6 @@ const COMMON_SKILLS = [
 ];
 
 export function parseCvTextToProfile(rawText: string, existingProfile: CandidateProfile): CandidateProfile {
-  const textUpper = rawText.toUpperCase();
   const textLower = rawText.toLowerCase();
 
   // 1. Extract Skills
