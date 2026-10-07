@@ -1,14 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { 
-  Search, 
-  Globe, 
-  Briefcase, 
-  RotateCcw,
-  Sparkles
-} from 'lucide-react';
-import { SearchFilterState } from '@/types/job';
+import React from "react";
+import { Search, Globe, Briefcase, RotateCcw, Sparkles } from "lucide-react";
+import { SearchFilterState } from "@/types/job";
 
 interface SearchScannerBarProps {
   filters: SearchFilterState;
@@ -19,30 +13,30 @@ interface SearchScannerBarProps {
 }
 
 const ROLE_PRESETS = [
-  { label: 'All Roles', value: '' },
-  { label: 'Frontend', value: 'frontend' },
-  { label: 'React / Next.js', value: 'react' },
-  { label: 'Fullstack', value: 'fullstack' },
-  { label: 'Junior / Entry', value: 'junior' },
-  { label: 'Internship', value: 'internship' },
+  { label: "All Roles", value: "" },
+  { label: "Frontend", value: "frontend" },
+  { label: "React / Next.js", value: "react" },
+  { label: "Fullstack", value: "fullstack" },
+  { label: "Junior / Entry", value: "junior" },
+  { label: "Internship", value: "internship" },
 ];
 
 const LOCATION_PRESETS = [
-  { label: 'All Locations', value: '' },
-  { label: 'Remote Only', value: 'remote' },
-  { label: 'Nigeria', value: 'nigeria' },
-  { label: 'Australia', value: 'australia' },
-  { label: 'Canada', value: 'canada' },
-  { label: 'United States', value: 'united states' },
-  { label: 'Worldwide', value: 'worldwide' },
+  { label: "All Locations", value: "" },
+  { label: "Remote Only", value: "remote" },
+  { label: "Nigeria", value: "nigeria" },
+  { label: "Australia", value: "australia" },
+  { label: "Canada", value: "canada" },
+  { label: "United States", value: "united states" },
+  { label: "Worldwide", value: "worldwide" },
 ];
 
 export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
   filters,
   setFilters,
-  _totalCount,
-  _sourcesScannedCount,
-  onReset
+  // _totalCount,
+  // _sourcesScannedCount,
+  onReset,
 }) => {
   return (
     <div className="rounded-2xl border border-slate-800 bg-[#0b101d]/90 p-4 shadow-xl backdrop-blur-xl mb-6">
@@ -54,13 +48,15 @@ export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
           <input
             type="text"
             value={filters.query}
-            onChange={(e) => setFilters(prev => ({ ...prev, query: e.target.value }))}
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, query: e.target.value }))
+            }
             placeholder="Search roles, skills (e.g. React, TypeScript, Next.js, Node)..."
             className="w-full rounded-xl border border-slate-700/80 bg-slate-900/90 pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-400 transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
           />
           {filters.query && (
             <button
-              onClick={() => setFilters(prev => ({ ...prev, query: '' }))}
+              onClick={() => setFilters((prev) => ({ ...prev, query: "" }))}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
             >
               Clear
@@ -70,10 +66,12 @@ export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
 
         {/* Match Score Threshold Slider */}
         <div className="lg:col-span-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-          <div className="flex items-center gap-2 text-xs text-slate-300 min-w-[160px]">
+          <div className="flex items-center gap-2 text-xs text-slate-300 min-w-40">
             <Sparkles className="h-4 w-4 text-indigo-400" />
             <span>Min Match Score:</span>
-            <span className="font-bold text-indigo-400 font-mono text-sm">{filters.minMatchScore}%+</span>
+            <span className="font-bold text-indigo-400 font-mono text-sm">
+              {filters.minMatchScore}%+
+            </span>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto flex-1">
@@ -83,32 +81,49 @@ export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
               max="90"
               step="5"
               value={filters.minMatchScore}
-              onChange={(e) => setFilters(prev => ({ ...prev, minMatchScore: Number(e.target.value) }))}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  minMatchScore: Number(e.target.value),
+                }))
+              }
               className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
             />
-            
+
             {/* Quick preset buttons */}
             <div className="flex items-center gap-1 shrink-0">
               <button
-                onClick={() => setFilters(prev => ({ ...prev, minMatchScore: 0 }))}
+                onClick={() =>
+                  setFilters((prev) => ({ ...prev, minMatchScore: 0 }))
+                }
                 className={`px-2 py-0.5 text-[10px] rounded font-medium border ${
-                  filters.minMatchScore === 0 ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-800 text-slate-400 border-slate-700'
+                  filters.minMatchScore === 0
+                    ? "bg-indigo-600 text-white border-indigo-500"
+                    : "bg-slate-800 text-slate-400 border-slate-700"
                 }`}
               >
                 All
               </button>
               <button
-                onClick={() => setFilters(prev => ({ ...prev, minMatchScore: 75 }))}
+                onClick={() =>
+                  setFilters((prev) => ({ ...prev, minMatchScore: 75 }))
+                }
                 className={`px-2 py-0.5 text-[10px] rounded font-medium border ${
-                  filters.minMatchScore === 75 ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-800 text-slate-400 border-slate-700'
+                  filters.minMatchScore === 75
+                    ? "bg-indigo-600 text-white border-indigo-500"
+                    : "bg-slate-800 text-slate-400 border-slate-700"
                 }`}
               >
                 75%+
               </button>
               <button
-                onClick={() => setFilters(prev => ({ ...prev, minMatchScore: 85 }))}
+                onClick={() =>
+                  setFilters((prev) => ({ ...prev, minMatchScore: 85 }))
+                }
                 className={`px-2 py-0.5 text-[10px] rounded font-medium border ${
-                  filters.minMatchScore === 85 ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-800 text-slate-400 border-slate-700'
+                  filters.minMatchScore === 85
+                    ? "bg-indigo-600 text-white border-indigo-500"
+                    : "bg-slate-800 text-slate-400 border-slate-700"
                 }`}
               >
                 85%+
@@ -128,11 +143,13 @@ export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
           {ROLE_PRESETS.map((preset) => (
             <button
               key={preset.label}
-              onClick={() => setFilters(prev => ({ ...prev, roleFilter: preset.value }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, roleFilter: preset.value }))
+              }
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
                 filters.roleFilter === preset.value
-                  ? 'bg-indigo-600/90 text-white shadow-sm border border-indigo-400/50'
-                  : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200 hover:bg-slate-800'
+                  ? "bg-indigo-600/90 text-white shadow-sm border border-indigo-400/50"
+                  : "bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200 hover:bg-slate-800"
               }`}
             >
               {preset.label}
@@ -149,16 +166,26 @@ export const SearchScannerBar: React.FC<SearchScannerBarProps> = ({
             <button
               key={loc.label}
               onClick={() => {
-                if (loc.value === 'remote') {
-                  setFilters(prev => ({ ...prev, remoteOnly: !prev.remoteOnly }));
+                if (loc.value === "remote") {
+                  setFilters((prev) => ({
+                    ...prev,
+                    remoteOnly: !prev.remoteOnly,
+                  }));
                 } else {
-                  setFilters(prev => ({ ...prev, locationFilter: loc.value }));
+                  setFilters((prev) => ({
+                    ...prev,
+                    locationFilter: loc.value,
+                  }));
                 }
               }}
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
-                (loc.value === 'remote' ? filters.remoteOnly : filters.locationFilter === loc.value)
-                  ? 'bg-emerald-600/90 text-white shadow-sm border border-emerald-400/50'
-                  : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200 hover:bg-slate-800'
+                (
+                  loc.value === "remote"
+                    ? filters.remoteOnly
+                    : filters.locationFilter === loc.value
+                )
+                  ? "bg-emerald-600/90 text-white shadow-sm border border-emerald-400/50"
+                  : "bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200 hover:bg-slate-800"
               }`}
             >
               {loc.label}
